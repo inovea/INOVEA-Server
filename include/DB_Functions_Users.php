@@ -15,7 +15,6 @@ class DB_Functions {
  
     // destructor
     function __destruct() {
-         
     }
  
     /**
@@ -47,6 +46,26 @@ class DB_Functions {
             return false;
         }
 	}
+
+    public function updateDynamic($idCourier, $sql) {
+        $query = "UPDATE Courier";
+
+        if (!empty($sql)) {
+            $query .= ' SET ' . implode(' AND ', $sql);
+        }
+        $query .= " WHERE idCourier = '$idCourier'";
+
+        echo $query;
+        $result = mysql_query($query);
+
+        //$result = mysql_query("UPDATE Courier SET name = '$name', firstname = '$firstname', mail = '$mail', scheduler = '$scheduler' WHERE idCourier = '$idCourier'") or die(mysql_error());
+        if ($result) {
+            $result = mysql_query("SELECT * FROM Courier WHERE idCourier = '$idCourier'");
+            return mysql_fetch_array($result);
+        } else {
+            return false;
+        }
+    }
 	
 	public function changePassword($mail, $password){
 		$encrypted_password = sha1($password);
@@ -150,6 +169,5 @@ class DB_Functions {
             return false;
         }
     }
-}
- 
+} 
 ?>

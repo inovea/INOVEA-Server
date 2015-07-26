@@ -6,6 +6,8 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @@session.auto_increment_increment = 1;
+SET @@session.auto_increment_offset = 0;
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -37,8 +39,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Errand` (
   `idErrand` INT NOT NULL AUTO_INCREMENT,
   `state` INT NOT NULL DEFAULT 0,
-  `dateDebut` DATETIME NOT NULL DEFAULT 0001-01-01 01:00:00,
-  `dateFin` DATETIME NOT NULL DEFAULT 0001-01-01 01:00:00,
+  `dateDebut` DATETIME NOT NULL DEFAULT '0001-01-01 01:00:00',
+  `dateFin` DATETIME NOT NULL DEFAULT '0001-01-01 01:00:00',
   `duree` DOUBLE NULL,
   `distance` DOUBLE NULL,
   `Courier_idCourier` INT NULL,
@@ -74,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Container` (
   `lng` DOUBLE NULL,
   `state` INT NOT NULL DEFAULT 0,
   `type` INT NOT NULL DEFAULT 0,
-  `lastCollect` DATETIME NOT NULL DEFAULT 0001-01-01 01:00:00,
+  `lastCollect` DATETIME NOT NULL DEFAULT '0001-01-01 01:00:00',
   `address` VARCHAR(140) NULL,
   `Errand_idErrand` INT NULL,
   `CentreExploitation_idCe` INT NOT NULL,

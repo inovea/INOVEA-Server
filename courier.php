@@ -139,7 +139,42 @@ if (isset($_GET['tag']) && $_GET['tag'] != '') {
             echo json_encode($response);
         }
 		
-    } else if ($tag == 'delete') {
+    } else if ($tag == 'updateDynamic') {
+        $idCourier = $_GET['idCourier'];
+
+        if (isset($_GET['name']) && $_GET['name'] != '') {
+            $name = $_GET['name'];
+            $sql[] = " name = '".$name."' ";
+        }
+        if (isset($_GET['firstname']) && $_GET['firstname'] != '') {
+            $firstname = $_GET['firstname'];
+            $sql[] = " firstname = '".$firstname."' ";
+        }
+        if (isset($_GET['mail']) && $_GET['mail'] != '') {
+            $mail = $_GET['mail'];
+            $sql[] = " mail = '".$mail."' ";
+        }
+        if (isset($_GET['scheduler']) && $_GET['scheduler'] != '') {
+            $scheduler = $_GET['scheduler'];
+            $sql[] = " scheduler = ".$scheduler." ";
+        }
+
+        $user = $db->updateDynamic($idCourier, $sql);
+        if ($user != false) {
+            $response["error"] = "0";
+            $response["user"]["idCourier"] = $user["idCourier"];
+            $response["user"]["name"] = $user["name"];
+            $response["user"]["firstname"] = $user["firstname"];
+            $response["user"]["mail"] = $user["mail"];
+            $response["user"]["scheduler"] = $user["scheduler"];
+            echo json_encode($response);
+        } else {
+            $response["error"] = "1";
+            $response["error_msg"] = "Impossible de modifier l'element!";
+            echo json_encode($response);
+        }
+        
+    }else if ($tag == 'delete') {
 		
 		$idCourier = $_GET['idCourier'];
 		
